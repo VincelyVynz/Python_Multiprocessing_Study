@@ -3,6 +3,7 @@ import os
 
 def gray_scale(image):
     filename = os.path.basename(image)
+    os.makedirs("output_images", exist_ok=True)
     with Image.open(image) as img:
         img = img.convert('L')
         img.save(f'output_images/{filename}')
