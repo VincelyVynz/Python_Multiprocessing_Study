@@ -1,5 +1,5 @@
 from PIL import Image
-import os
+import os, time
 
 
 def gray_scale(images):
@@ -18,8 +18,10 @@ def main():
 
     if os.path.isdir(folder):
         images = [os.path.join(folder, file) for file in os.listdir(folder) if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
-
+        start_time = time.perf_counter()
         gray_scale(images)
+        end_time = time.perf_counter()
+        print(f"Time taken to convert {len(images)} images: {end_time - start_time} seconds")
     else:
         print("Folder not found.")
 
