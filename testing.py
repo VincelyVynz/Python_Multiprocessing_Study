@@ -1,15 +1,25 @@
-import time
+import time, multiprocessing
 
-def sleep_a_second():
-    print("Start sleep")
-    time.sleep(1)
-    print("Slept")
+start_time = time.perf_counter()
+
+def sleep_a_second(duration):
+    print(f"Start {duration} seconds of sleep")
+    time.sleep(duration)
+    print(f"Slept for {duration} seconds")
 
 if __name__ == '__main__':
-    start_time = time.perf_counter()
-    sleep_a_second()
+
+    processes = []
+
+    for _ in range(10):
+        p = multiprocessing.Process(target=sleep_a_second, args=[1.25])
+        p.start()
+        processes.append(p)
+
+    for p in processes:
+        p.join()
+
+
     end_time = time.perf_counter()
 
-    time_taken = end_time - start_time
-    print(time_taken)
-    print(f"Time taken: {round(time_taken, 2)} seconds")
+    print(f"Time taken: {round(end_time - start_time, 2)} seconds")
