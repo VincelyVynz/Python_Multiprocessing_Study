@@ -15,3 +15,9 @@ if __name__ == "__main__":
     parking_lot = multiprocessing.Semaphore(2)
 
     processes = [multiprocessing.Process(target=worker_task, args=(i, parking_lot)) for i in range(5)]
+
+    for p in processes:
+        p.start()
+
+    for p in processes:
+        p.join()
